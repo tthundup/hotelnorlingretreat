@@ -15,7 +15,6 @@ body {
     color: #333;
     overflow-x: hidden;
     margin: 0;
-    padding: 0 20px;
 }
 
 .container {
@@ -96,7 +95,7 @@ h3 {
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 20px; /* align with body/container */
     display: flex;
     justify-content: space-between;
     align-items: center;
