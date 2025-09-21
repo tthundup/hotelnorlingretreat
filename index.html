@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preload" as="image" href="Images/logo.jpg">
     <link rel="preload" as="image" href="Images/exterior.jpeg.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Papyrus:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -16,8 +16,9 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#home" class="logo-link">
-                    <img src="Images/logo.jpg" alt="Hotel Norling Retreat Logo" class="logo-img" width="100" height="50" fetchpriority="high" decoding="async">
-                    <h2>Hotel Norling Retreat</h2>
+                    <span class="logo-text-part">NORLING</span>
+                    <img src="Images/IMG_2540.jpg.png" alt="Hotel Norling Retreat Logo" class="logo-img" width="100" height="50" fetchpriority="high" decoding="async">
+                    <span class="logo-text-part">RETREAT</span>
                 </a>
             </div>
             <ul class="nav-menu">
@@ -116,8 +117,8 @@
                         <img src="Images/attic room.png" alt="Deluxe Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
                     </div>
                     <div class="room-content">
-                        <h3>Deluxe Room</h3>
-                        <p>Spacious and elegantly furnished with modern amenities and stunning views.</p>
+                        <h3>Deluxe</h3>
+                        <p>Comfortable and well-appointed rooms with essential amenities for a pleasant stay.</p>
                         <ul class="room-features">
                             <li><i class="fas fa-wifi"></i> Free WiFi</li>
                             <li><i class="fas fa-tv"></i> Smart TV</li>
@@ -128,31 +129,46 @@
                 </div>
                 <div class="room-card">
                     <div class="room-image">
-                        <img src="Images/rajbari.jpeg.jpg" alt="Executive Suite" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                        <img src="Images/rajbari.jpeg.jpg" alt="Super Deluxe Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
                     </div>
                     <div class="room-content">
-                        <h3>Executive Suite</h3>
-                        <p>Premium suite with separate living area and enhanced luxury amenities.</p>
+                        <h3>Super Deluxe</h3>
+                        <p>Spacious rooms with enhanced amenities and beautiful views for a more luxurious experience, and breathtaking views of the majestic Kanchenjunga.</p>
                         <ul class="room-features">
                             <li><i class="fas fa-wifi"></i> Free WiFi</li>
                             <li><i class="fas fa-tv"></i> Smart TV</li>
                             <li><i class="fas fa-snowflake"></i> Air Conditioning</li>
-                            <li><i class="fas fa-bath"></i> Jacuzzi</li>
+                            <li><i class="fas fa-bath"></i> Premium Bathroom</li>
                         </ul>
                     </div>
                 </div>
                 <div class="room-card">
                     <div class="room-image">
-                        <img src="Images/washroom.png" alt="Presidential Suite" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                        <img src="Images/washroom.png" alt="Premium Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
                     </div>
                     <div class="room-content">
-                        <h3>Presidential Suite</h3>
-                        <p>Ultimate luxury with panoramic views and exclusive butler service.</p>
+                        <h3>Premium</h3>
+                        <p>Elegant rooms with premium furnishings and exclusive amenities for discerning guests.</p>
                         <ul class="room-features">
                             <li><i class="fas fa-wifi"></i> Free WiFi</li>
                             <li><i class="fas fa-tv"></i> Smart TV</li>
                             <li><i class="fas fa-snowflake"></i> Air Conditioning</li>
-                            <li><i class="fas fa-user-tie"></i> Butler Service</li>
+                            <li><i class="fas fa-concierge-bell"></i> Concierge Service</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="Images/attic room.png" alt="Attic Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                    </div>
+                    <div class="room-content">
+                        <h3>Attic</h3>
+                        <p>Unique attic rooms with character and charm, offering a distinctive accommodation experience.</p>
+                        <ul class="room-features">
+                            <li><i class="fas fa-wifi"></i> Free WiFi</li>
+                            <li><i class="fas fa-tv"></i> Smart TV</li>
+                            <li><i class="fas fa-snowflake"></i> Air Conditioning</li>
+                            <li><i class="fas fa-star"></i> Exclusive Design</li>
                         </ul>
                     </div>
                 </div>
@@ -484,6 +500,12 @@
             <div class="modal-caption"></div>
         </div>
     </div>
+
+    <!-- Sticky Book Now Button -->
+    <a href="https://hotelnorlingretreat.bookingjini.in/" target="_blank" class="sticky-book-btn" aria-label="Book Now">
+        <i class="fas fa-calendar-check"></i>
+        <span>Book Now</span>
+    </a>
 
     <script src="script.js"></script>
 </body>

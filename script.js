@@ -33,11 +33,9 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 window.addEventListener('scroll', () => {
   const navbar = document.querySelector('.navbar');
   if (window.scrollY > 100) {
-    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    navbar.classList.add('scrolled');
   } else {
-    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-    navbar.style.boxShadow = 'none';
+    navbar.classList.remove('scrolled');
   }
 });
 
@@ -328,13 +326,13 @@ backToTopBtn.style.cssText = `
     right: 30px;
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    color: #2c2c2c;
     border: none;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -419,9 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // Console welcome message
 console.log(
   '%c🏨 Welcome to Hotel Norling Retreat! 🏨',
-  'color: #667eea; font-size: 20px; font-weight: bold;'
+  'color: #d4af37; font-size: 20px; font-weight: bold;'
 );
 console.log(
   '%cThank you for visiting our website. We hope you enjoy your virtual tour!',
-  'color: #666; font-size: 14px;'
+  'color: #2c2c2c; font-size: 14px;'
 );
