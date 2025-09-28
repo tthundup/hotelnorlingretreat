@@ -68,7 +68,7 @@ The website uses a purple gradient theme. To change colors, modify the CSS varia
 - Firefox
 - Safari
 - Edge
-- Mobile browsers
+- Mobile browser
 
 ## Performance
 
