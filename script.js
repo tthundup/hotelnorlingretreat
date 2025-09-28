@@ -1,3 +1,33 @@
+// Performance optimizations
+document.addEventListener('DOMContentLoaded', function () {
+  // Preload critical images
+  const criticalImages = [
+    'Images/ui/logo.jpg',
+    'Images/rooms/super-deluxe/IMG_4112.JPG',
+  ];
+
+  criticalImages.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  // Optimize scroll performance
+  let ticking = false;
+  function updateScroll() {
+    // Your scroll logic here
+    ticking = false;
+  }
+
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateScroll);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', requestTick, { passive: true });
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -29,21 +59,42 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// Navbar background change on scroll
-window.addEventListener('scroll', () => {
+// Navbar background change on scroll (optimized)
+let lastScrollY = 0;
+let ticking = false;
+
+function updateNavbar() {
   const navbar = document.querySelector('.navbar');
-  if (window.scrollY > 100) {
+  if (lastScrollY > 100) {
     navbar.classList.add('scrolled');
   } else {
     navbar.classList.remove('scrolled');
   }
-});
+  ticking = false;
+}
 
-// Active navigation link highlighting
+function requestNavbarUpdate() {
+  if (!ticking) {
+    requestAnimationFrame(updateNavbar);
+    ticking = true;
+  }
+}
+
+window.addEventListener(
+  'scroll',
+  () => {
+    lastScrollY = window.scrollY;
+    requestNavbarUpdate();
+  },
+  { passive: true }
+);
+
+// Active navigation link highlighting (optimized)
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-link');
+let currentSection = '';
 
-window.addEventListener('scroll', () => {
+function updateActiveNav() {
   let current = '';
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
@@ -53,13 +104,27 @@ window.addEventListener('scroll', () => {
     }
   });
 
-  navLinks.forEach((link) => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${current}`) {
-      link.classList.add('active');
-    }
-  });
-});
+  if (current !== currentSection) {
+    currentSection = current;
+    navLinks.forEach((link) => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+}
+
+// Use the same optimized scroll handler
+window.addEventListener(
+  'scroll',
+  () => {
+    lastScrollY = window.scrollY;
+    requestNavbarUpdate();
+    updateActiveNav();
+  },
+  { passive: true }
+);
 
 // Contact form handling
 const contactForm = document.querySelector('.contact-form form');

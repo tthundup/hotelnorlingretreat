@@ -5,8 +5,37 @@
     box-sizing: border-box;
 }
 
+/* Performance optimizations */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shift */
+    aspect-ratio: attr(width) / attr(height);
+    /* Optimize rendering */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    /* GPU acceleration */
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Smooth scrolling for all elements */
+* {
+    scroll-behavior: smooth;
+}
+
+/* Optimize sections for better scrolling */
+section {
+    contain: layout style paint;
+    will-change: transform;
+}
+
 html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent white flash */
+    background-color: #000000;
 }
 
 body {
@@ -17,6 +46,9 @@ body {
     margin: 0;
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2c2c2c 100%);
     min-height: 100vh;
+    /* Performance optimizations - removed transform to fix fixed positioning */
+    background-attachment: fixed;
+    will-change: scroll-position;
 }
 
 .container {
@@ -97,6 +129,11 @@ h3 {
     padding: 1rem 0;
     transition: all 0.3s ease;
     border-bottom: 2px solid #d4af37;
+    /* Performance optimizations */
+    will-change: background-color, padding, box-shadow;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .navbar.scrolled {
@@ -1572,7 +1609,7 @@ h3 {
 
 /* Floating Book Now Widget */
 .sticky-book-btn {
-    position: fixed;
+    position: fixed !important;
     bottom: 30px;
     left: 30px;
     background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
@@ -1583,7 +1620,7 @@ h3 {
     font-weight: 600;
     font-size: 0.85rem;
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    z-index: 9999 !important;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1592,6 +1629,8 @@ h3 {
     backdrop-filter: blur(10px);
     min-width: 120px;
     justify-content: center;
+    /* Ensure it stays fixed */
+    transform: none !important;
 }
 
 .sticky-book-btn:hover {
