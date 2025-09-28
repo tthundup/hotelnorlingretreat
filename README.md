@@ -93,3 +93,5 @@ For questions about this website, please contact the development team.
 ---
 
 **Hotel Norling Retreat** - Experience luxury and tranquility in the heart of nature.
+
+*Last updated: January 2025*
