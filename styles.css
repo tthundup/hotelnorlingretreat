@@ -950,6 +950,65 @@ h3 {
     font-weight: 400;
 }
 
+/* Made in India with Tricolor */
+.made-in-india {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.made-with, .in {
+    color: #e0e0e0;
+}
+
+.heart {
+    font-size: 1.1rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.india-flag {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(to right, #FF9933 33%, #FFFFFF 33% 66%, #138808 66%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.flag-saffron, .flag-white, .flag-green {
+    padding: 0;
+    margin: 0;
+}
+
+.flag-saffron {
+    color: #FF9933;
+    -webkit-text-fill-color: #FF9933;
+}
+
+.flag-white {
+    color: #FFFFFF;
+    -webkit-text-fill-color: #FFFFFF;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.flag-green {
+    color: #138808;
+    -webkit-text-fill-color: #138808;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
