@@ -2,21 +2,22 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://hotelnotlingretreat.com/sitemap.xml
+Sitemap: https://hotelnorlingretreat.com/sitemap.xml
 
-# Crawl delay (optional)
+# Crawl-delay for respectful crawling
 Crawl-delay: 1
 
-# Disallow admin or private directories (if any)
+# Allow all search engines to index all content
+Disallow:
+
+# Block access to admin or sensitive areas (if any exist in future)
 # Disallow: /admin/
 # Disallow: /private/
 
-# Allow all search engines to index the site
-User-agent: Googlebot
-Allow: /
+# Allow access to CSS and JS files for better rendering
+Allow: /styles.css
+Allow: /script.js
+Allow: /Images/
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
+# Host directive (helps with canonical URLs)
+Host: hotelnorlingretreat.com
