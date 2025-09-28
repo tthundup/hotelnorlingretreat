@@ -228,38 +228,60 @@ window.addEventListener(
   { passive: true }
 );
 
-// Contact form handling
-const contactForm = document.querySelector('.contact-form form');
-if (contactForm) {
-  contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+// Contact form handling for Formspree
+document.addEventListener('DOMContentLoaded', () => {
+  const contactForm = document.getElementById('contact-form');
 
-    // Get form data
-    const formData = new FormData(this);
-    const name = this.querySelector('input[type="text"]').value;
-    const email = this.querySelector('input[type="email"]').value;
-    const phone = this.querySelector('input[type="tel"]').value;
-    const message = this.querySelector('textarea').value;
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent default browser behavior
 
-    // Simple validation
-    if (!name || !email || !message) {
-      showNotification('Please fill in all required fields.', 'error');
-      return;
-    }
+      console.log('Form submitting to Formspree...');
+      console.log('Form action:', this.action);
+      console.log('Form method:', this.method);
 
-    if (!isValidEmail(email)) {
-      showNotification('Please enter a valid email address.', 'error');
-      return;
-    }
+      // Get form data
+      const formData = new FormData(this);
 
-    // Simulate form submission
-    showNotification(
-      'Thank you for your message! We will get back to you soon.',
-      'success'
-    );
-    this.reset();
-  });
-}
+      // Show user feedback
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      // Submit to Formspree using fetch
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            showNotification(
+              'Thank you! Your message has been sent successfully.',
+              'success'
+            );
+            this.reset();
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          showNotification(
+            'Sorry, there was an error sending your message. Please try again.',
+            'error'
+          );
+        })
+        .finally(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        });
+    });
+  }
+});
 
 // Email validation function
 function isValidEmail(email) {
@@ -631,42 +653,7 @@ const roomGalleries = {
   },
 };
 
-// Contact Form Functionality
-document.addEventListener('DOMContentLoaded', () => {
-  const contactForm = document.getElementById('contact-form');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      // Get form data
-      const name = document.getElementById('contact-name').value;
-      const email = document.getElementById('contact-email').value;
-      const phone = document.getElementById('contact-phone').value;
-      const message = document.getElementById('contact-message').value;
-
-      // Create email subject and body
-      const subject = `Contact from ${name} - Hotel Norling Retreat`;
-      const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
-
-      // Create mailto link
-      const mailtoLink = `mailto:thundupttb@gmail.com?subject=${encodeURIComponent(
-        subject
-      )}&body=${encodeURIComponent(body)}`;
-
-      // Open email client
-      window.location.href = mailtoLink;
-
-      // Show success message
-      alert(
-        'Your email client will open with a pre-filled message. Please send the email to complete your inquiry.'
-      );
-
-      // Reset form
-      contactForm.reset();
-    });
-  }
-});
+// Contact form is now handled by Formspree directly
 
 // Room Gallery Functionality
 document.addEventListener('DOMContentLoaded', () => {
