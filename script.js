@@ -1,31 +1,133 @@
-// Performance optimizations
-document.addEventListener('DOMContentLoaded', function () {
-  // Preload critical images
-  const criticalImages = [
-    'Images/ui/logo.jpg',
-    'Images/rooms/super-deluxe/IMG_4112.JPG',
-  ];
+// Smart Loading Screen Management
+class LoadingManager {
+  constructor() {
+    this.loadingScreen = document.getElementById('loadingScreen');
+    this.mainContent = document.getElementById('mainContent');
+    this.loadingText = document.getElementById('loadingText');
 
-  criticalImages.forEach((src) => {
-    const img = new Image();
-    img.src = src;
-  });
+    this.loadedResources = 0;
+    this.totalResources = 0;
+    this.minLoadingTime = 2000; // Minimum 2 seconds
+    this.maxLoadingTime = 5000; // Maximum 5 seconds
+    this.startTime = Date.now();
 
-  // Optimize scroll performance
-  let ticking = false;
-  function updateScroll() {
-    // Your scroll logic here
-    ticking = false;
+    this.criticalResources = [
+      'Images/ui/logo.jpg',
+      'Images/rooms/super-deluxe/IMG_4112.JPG',
+      'Images/rooms/super-deluxe/IMG_2540.jpg.png',
+    ];
+
+    // Random Darjeeling facts
+    this.darjeelingFacts = [
+      "Darjeeling produces less than 1% of India's tea, but is world-famous as the 'Champagne of Teas.'",
+      'The Darjeeling Himalayan Railway, built in the 1880s, is a UNESCO World Heritage toy train climbing from 100m to over 2,000m in 80 km.',
+      'The first commercial tea garden, Steinthal Tea Estate, was planted in 1852.',
+      "On clear mornings, Tiger Hill reveals golden sunrise views of Mt. Kanchenjunga, the world's third-highest peak.",
+      'Everest legend Tenzing Norgay lived in Darjeeling and founded the Himalayan Mountaineering Institute.',
+      "The Padmaja Naidu Himalayan Zoological Park (7,000 ft) is the world's highest-altitude zoo.",
+      'Darjeeling Zoo is famous for breeding the rare red panda, symbol of the Eastern Himalayas.',
+      'Darjeeling blends Tibetan, Nepali, Lepcha, and British heritage in its food, monasteries, and architecture.',
+      "Glenary's, a colonial-era bakery, has been serving cakes and tea for over 100 years.",
+      'The Batasia Loop lets the toy train make a full circle with stunning views of Kanchenjunga.',
+      'Darjeeling and its hills are home to over 600 species of orchids.',
+      'Locals mix Nepali, Hindi, Tibetan, Bengali, and English in their daily speech.',
+    ];
+
+    this.init();
   }
 
-  function requestTick() {
-    if (!ticking) {
-      requestAnimationFrame(updateScroll);
-      ticking = true;
+  init() {
+    this.totalResources = this.criticalResources.length;
+    // Show a random fact immediately
+    this.showRandomFact();
+    this.preloadCriticalResources();
+    this.startFactRotation();
+    this.setMaxTimeout();
+  }
+
+  preloadCriticalResources() {
+    this.criticalResources.forEach((src) => {
+      const img = new Image();
+      img.onload = () => this.resourceLoaded();
+      img.onerror = () => this.resourceLoaded(); // Count as loaded even if error
+      img.src = src;
+    });
+  }
+
+  resourceLoaded() {
+    this.loadedResources++;
+
+    if (this.loadedResources >= this.totalResources) {
+      this.checkMinTime();
     }
   }
 
-  window.addEventListener('scroll', requestTick, { passive: true });
+  startFactRotation() {
+    // Rotate facts every 3 seconds (shorter facts are easier to read)
+    this.factInterval = setInterval(() => {
+      this.showRandomFact();
+    }, 3000);
+  }
+
+  showRandomFact() {
+    let randomIndex;
+    let fact;
+
+    // Ensure we don't show the same fact twice in a row
+    do {
+      randomIndex = Math.floor(Math.random() * this.darjeelingFacts.length);
+      fact = this.darjeelingFacts[randomIndex];
+    } while (fact === this.currentFact && this.darjeelingFacts.length > 1);
+
+    this.currentFact = fact;
+
+    // Fade out, change text, fade in
+    this.loadingText.style.opacity = '0';
+    setTimeout(() => {
+      this.loadingText.textContent = fact;
+      this.loadingText.style.opacity = '1';
+    }, 300);
+  }
+
+  checkMinTime() {
+    const elapsed = Date.now() - this.startTime;
+    if (elapsed >= this.minLoadingTime) {
+      this.hideLoadingScreen();
+    } else {
+      setTimeout(() => this.hideLoadingScreen(), this.minLoadingTime - elapsed);
+    }
+  }
+
+  setMaxTimeout() {
+    setTimeout(() => {
+      this.hideLoadingScreen();
+    }, this.maxLoadingTime);
+  }
+
+  hideLoadingScreen() {
+    // Clear fact rotation interval
+    if (this.factInterval) {
+      clearInterval(this.factInterval);
+    }
+
+    // Show main content
+    this.mainContent.classList.add('loaded');
+
+    // Hide loading screen after a short delay
+    setTimeout(() => {
+      this.loadingScreen.classList.add('hidden');
+
+      // Remove from DOM after animation
+      setTimeout(() => {
+        this.loadingScreen.remove();
+      }, 500);
+    }, 300);
+  }
+}
+
+// Initialize loading manager when DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+  new LoadingManager();
 });
 
 // Mobile Navigation Toggle
