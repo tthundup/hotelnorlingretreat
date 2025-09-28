@@ -419,50 +419,87 @@ const roomGalleries = {
   deluxe: {
     title: 'Deluxe Room Gallery',
     images: [
-      { src: 'Images/attic room.png', alt: 'Deluxe Room Interior' },
-      { src: 'Images/washroom.png', alt: 'Deluxe Room Bathroom' },
-      { src: 'Images/design.jpeg.jpg', alt: 'Deluxe Room Design' },
-      { src: 'Images/IMG_0229.jpeg.jpg', alt: 'Deluxe Room View' },
-      { src: 'Images/IMG_0679.jpg', alt: 'Deluxe Room Amenities' },
+      { src: 'Images/rooms/deluxe/deluxe-room.webp', alt: 'Deluxe Room' },
     ],
   },
   'super-deluxe': {
     title: 'Super Deluxe Room Gallery',
     images: [
-      { src: 'Images/rajbari.jpeg.jpg', alt: 'Super Deluxe Room Interior' },
       {
-        src: 'Images/kanchen junga.jpeg.jpg',
-        alt: 'Super Deluxe Room - Kanchenjunga View',
+        src: 'Images/rooms/super-deluxe/super-deluxe (1).webp',
+        alt: 'Super Deluxe Room 1',
       },
       {
-        src: 'Images/kanchen junga (2).jpeg.jpg',
-        alt: 'Super Deluxe Room - Mountain View',
+        src: 'Images/rooms/super-deluxe/super-deluxe (2).webp',
+        alt: 'Super Deluxe Room 2',
       },
-      { src: 'Images/IMG_2540.jpg.png', alt: 'Super Deluxe Room Design' },
-      { src: 'Images/IMG_4112.JPG', alt: 'Super Deluxe Room Exterior' },
+      {
+        src: 'Images/rooms/super-deluxe/super-deluxe (3).webp',
+        alt: 'Super Deluxe Room 3',
+      },
+      {
+        src: 'Images/rooms/super-deluxe/super-deluxe (4).webp',
+        alt: 'Super Deluxe Room 4',
+      },
     ],
   },
   premium: {
     title: 'Premium Room Gallery',
     images: [
-      { src: 'Images/washroom.png', alt: 'Premium Room Interior' },
-      { src: 'Images/design.jpeg.jpg', alt: 'Premium Room Design' },
-      { src: 'Images/IMG_0229.jpeg.jpg', alt: 'Premium Room View' },
-      { src: 'Images/IMG_0679.jpg', alt: 'Premium Room Amenities' },
-      { src: 'Images/IMG_2540.jpg.png', alt: 'Premium Room Features' },
+      { src: 'Images/rooms/premium/premium (1).webp', alt: 'Premium Room 1' },
+      { src: 'Images/rooms/premium/premium (2).webp', alt: 'Premium Room 2' },
+      { src: 'Images/rooms/premium/premium (3).webp', alt: 'Premium Room 3' },
+      { src: 'Images/rooms/premium/premium (4).webp', alt: 'Premium Room 4' },
+      { src: 'Images/rooms/premium/premium (5).webp', alt: 'Premium Room 5' },
     ],
   },
   attic: {
     title: 'Attic Room Gallery',
     images: [
-      { src: 'Images/attic room.png', alt: 'Attic Room Interior' },
-      { src: 'Images/design.jpeg.jpg', alt: 'Attic Room Design' },
-      { src: 'Images/IMG_0229.jpeg.jpg', alt: 'Attic Room View' },
-      { src: 'Images/IMG_0679.jpg', alt: 'Attic Room Features' },
-      { src: 'Images/IMG_2540.jpg.png', alt: 'Attic Room Amenities' },
+      { src: 'Images/rooms/attic/attic (1).webp', alt: 'Attic Room 1' },
+      { src: 'Images/rooms/attic/attic (2).webp', alt: 'Attic Room 2' },
+      { src: 'Images/rooms/attic/attic (3).webp', alt: 'Attic Room 3' },
+      { src: 'Images/rooms/attic/attic (4).webp', alt: 'Attic Room 4' },
     ],
   },
 };
+
+// Contact Form Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const contactForm = document.getElementById('contact-form');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Get form data
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const phone = document.getElementById('contact-phone').value;
+      const message = document.getElementById('contact-message').value;
+
+      // Create email subject and body
+      const subject = `Contact from ${name} - Hotel Norling Retreat`;
+      const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+
+      // Create mailto link
+      const mailtoLink = `mailto:thundupttb@gmail.com?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+
+      // Open email client
+      window.location.href = mailtoLink;
+
+      // Show success message
+      alert(
+        'Your email client will open with a pre-filled message. Please send the email to complete your inquiry.'
+      );
+
+      // Reset form
+      contactForm.reset();
+    });
+  }
+});
 
 // Room Gallery Functionality
 document.addEventListener('DOMContentLoaded', () => {
