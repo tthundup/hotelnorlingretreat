@@ -153,6 +153,10 @@
                 <div class="room-card" data-room-type="deluxe">
                     <div class="room-image">
                         <img src="Images/attic room.png" alt="Deluxe Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                        <div class="room-gallery-overlay">
+                            <i class="fas fa-images"></i>
+                            <span>View Gallery</span>
+                        </div>
                     </div>
                     <div class="room-content">
                         <h3>Deluxe</h3>
@@ -165,9 +169,13 @@
                         </ul>
                     </div>
                 </div>
-                <div class="room-card">
+                <div class="room-card" data-room-type="super-deluxe">
                     <div class="room-image">
                         <img src="Images/rajbari.jpeg.jpg" alt="Super Deluxe Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                        <div class="room-gallery-overlay">
+                            <i class="fas fa-images"></i>
+                            <span>View Gallery</span>
+                        </div>
                     </div>
                     <div class="room-content">
                         <h3>Super Deluxe</h3>
@@ -180,9 +188,13 @@
                         </ul>
                     </div>
                 </div>
-                <div class="room-card">
+                <div class="room-card" data-room-type="premium">
                     <div class="room-image">
                         <img src="Images/washroom.png" alt="Premium Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                        <div class="room-gallery-overlay">
+                            <i class="fas fa-images"></i>
+                            <span>View Gallery</span>
+                        </div>
                     </div>
                     <div class="room-content">
                         <h3>Premium</h3>
@@ -195,9 +207,13 @@
                         </ul>
                     </div>
                 </div>
-                <div class="room-card">
+                <div class="room-card" data-room-type="attic">
                     <div class="room-image">
                         <img src="Images/attic room.png" alt="Attic Room" class="room-img" width="600" height="200" loading="lazy" decoding="async">
+                        <div class="room-gallery-overlay">
+                            <i class="fas fa-images"></i>
+                            <span>View Gallery</span>
+                        </div>
                     </div>
                     <div class="room-content">
                         <h3>Attic</h3>
@@ -548,6 +564,33 @@
             <span class="close">&times;</span>
             <img id="modalImage" src="" alt="">
             <div class="modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Room Gallery Modal -->
+    <div id="roomGalleryModal" class="modal">
+        <div class="modal-content room-gallery-modal">
+            <span class="close room-gallery-close">&times;</span>
+            <!-- <div class="room-gallery-header">
+                <h3 id="roomGalleryTitle"></h3>
+                <div class="gallery-counter">
+                    <span id="currentImage">1</span> / <span id="totalImages">1</span>
+                </div>
+            </div> -->
+            <div class="room-gallery-container">
+                <button class="gallery-nav gallery-prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="room-gallery-main">
+                    <img id="roomGalleryImage" src="" alt="">
+                </div>
+                <button class="gallery-nav gallery-next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+             <div class="room-gallery-dots" id="roomGalleryDots">
+                 <!-- Dots will be populated by JavaScript -->
+             </div>
         </div>
     </div>
 

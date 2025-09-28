@@ -414,6 +414,267 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Room Gallery Data
+const roomGalleries = {
+  deluxe: {
+    title: 'Deluxe Room Gallery',
+    images: [
+      { src: 'Images/attic room.png', alt: 'Deluxe Room Interior' },
+      { src: 'Images/washroom.png', alt: 'Deluxe Room Bathroom' },
+      { src: 'Images/design.jpeg.jpg', alt: 'Deluxe Room Design' },
+      { src: 'Images/IMG_0229.jpeg.jpg', alt: 'Deluxe Room View' },
+      { src: 'Images/IMG_0679.jpg', alt: 'Deluxe Room Amenities' },
+    ],
+  },
+  'super-deluxe': {
+    title: 'Super Deluxe Room Gallery',
+    images: [
+      { src: 'Images/rajbari.jpeg.jpg', alt: 'Super Deluxe Room Interior' },
+      {
+        src: 'Images/kanchen junga.jpeg.jpg',
+        alt: 'Super Deluxe Room - Kanchenjunga View',
+      },
+      {
+        src: 'Images/kanchen junga (2).jpeg.jpg',
+        alt: 'Super Deluxe Room - Mountain View',
+      },
+      { src: 'Images/IMG_2540.jpg.png', alt: 'Super Deluxe Room Design' },
+      { src: 'Images/IMG_4112.JPG', alt: 'Super Deluxe Room Exterior' },
+    ],
+  },
+  premium: {
+    title: 'Premium Room Gallery',
+    images: [
+      { src: 'Images/washroom.png', alt: 'Premium Room Interior' },
+      { src: 'Images/design.jpeg.jpg', alt: 'Premium Room Design' },
+      { src: 'Images/IMG_0229.jpeg.jpg', alt: 'Premium Room View' },
+      { src: 'Images/IMG_0679.jpg', alt: 'Premium Room Amenities' },
+      { src: 'Images/IMG_2540.jpg.png', alt: 'Premium Room Features' },
+    ],
+  },
+  attic: {
+    title: 'Attic Room Gallery',
+    images: [
+      { src: 'Images/attic room.png', alt: 'Attic Room Interior' },
+      { src: 'Images/design.jpeg.jpg', alt: 'Attic Room Design' },
+      { src: 'Images/IMG_0229.jpeg.jpg', alt: 'Attic Room View' },
+      { src: 'Images/IMG_0679.jpg', alt: 'Attic Room Features' },
+      { src: 'Images/IMG_2540.jpg.png', alt: 'Attic Room Amenities' },
+    ],
+  },
+};
+
+// Room Gallery Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const roomGalleryModal = document.getElementById('roomGalleryModal');
+  const roomGalleryImage = document.getElementById('roomGalleryImage');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const roomGalleryDots = document.getElementById('roomGalleryDots');
+  const roomGalleryClose = document.querySelector('.room-gallery-close');
+  const roomCards = document.querySelectorAll('.room-card[data-room-type]');
+
+  let currentGallery = null;
+  let currentImageIndex = 0;
+
+  // Open room gallery when room card is clicked
+  roomCards.forEach((card) => {
+    const roomType = card.getAttribute('data-room-type');
+    const overlay = card.querySelector('.room-gallery-overlay');
+
+    if (overlay) {
+      overlay.addEventListener('click', () => {
+        openRoomGallery(roomType);
+      });
+    }
+  });
+
+  // Open room gallery function
+  function openRoomGallery(roomType) {
+    if (!roomGalleries[roomType]) return;
+
+    currentGallery = roomGalleries[roomType];
+    currentImageIndex = 0;
+
+    // Show modal
+    roomGalleryModal.style.display = 'block';
+    roomGalleryModal.style.visibility = 'visible';
+    document.body.style.overflow = 'hidden';
+
+    // Add show class for animation
+    setTimeout(() => {
+      roomGalleryModal.classList.add('show');
+    }, 10);
+
+    // Load first image and dots
+    loadCurrentImage();
+    loadDots();
+  }
+
+  // Load current image
+  function loadCurrentImage() {
+    if (!currentGallery) return;
+
+    const currentImage = currentGallery.images[currentImageIndex];
+    roomGalleryImage.src = currentImage.src;
+    roomGalleryImage.alt = currentImage.alt;
+
+    // Update dot active state
+    updateDotActiveState();
+  }
+
+  // Load dots
+  function loadDots() {
+    if (!currentGallery) return;
+
+    roomGalleryDots.innerHTML = '';
+
+    currentGallery.images.forEach((image, index) => {
+      const dot = document.createElement('button');
+      dot.className = `room-gallery-dot ${
+        index === currentImageIndex ? 'active' : ''
+      }`;
+      dot.addEventListener('click', () => {
+        currentImageIndex = index;
+        loadCurrentImage();
+      });
+      roomGalleryDots.appendChild(dot);
+    });
+  }
+
+  // Update dot active state
+  function updateDotActiveState() {
+    const dots = roomGalleryDots.querySelectorAll('.room-gallery-dot');
+    dots.forEach((dot, index) => {
+      dot.className = `room-gallery-dot ${
+        index === currentImageIndex ? 'active' : ''
+      }`;
+    });
+  }
+
+  // Navigation functions
+  function showNextImage() {
+    if (!currentGallery) return;
+    currentImageIndex = (currentImageIndex + 1) % currentGallery.images.length;
+    loadCurrentImage();
+  }
+
+  function showPrevImage() {
+    if (!currentGallery) return;
+    currentImageIndex =
+      currentImageIndex === 0
+        ? currentGallery.images.length - 1
+        : currentImageIndex - 1;
+    loadCurrentImage();
+  }
+
+  // Event listeners
+  nextBtn.addEventListener('click', showNextImage);
+  prevBtn.addEventListener('click', showPrevImage);
+
+  // Close modal (desktop only)
+  roomGalleryClose.addEventListener('click', () => {
+    if (window.innerWidth > 768) {
+      roomGalleryModal.classList.remove('show');
+      setTimeout(() => {
+        roomGalleryModal.style.display = 'none';
+        roomGalleryModal.style.visibility = 'hidden';
+        document.body.style.overflow = 'auto';
+      }, 400);
+    }
+  });
+
+  // Close modal when clicking outside (desktop only)
+  roomGalleryModal.addEventListener('click', (e) => {
+    if (e.target === roomGalleryModal && window.innerWidth > 768) {
+      roomGalleryModal.classList.remove('show');
+      setTimeout(() => {
+        roomGalleryModal.style.display = 'none';
+        roomGalleryModal.style.visibility = 'hidden';
+        document.body.style.overflow = 'auto';
+      }, 400);
+    }
+  });
+
+  // Touch events for mobile swipe-down to close
+  let startY = 0;
+  let currentY = 0;
+  let isDragging = false;
+  let initialTransform = 0;
+
+  roomGalleryModal.addEventListener('touchstart', (e) => {
+    if (window.innerWidth <= 768) {
+      startY = e.touches[0].clientY;
+      isDragging = true;
+      initialTransform = 0;
+    }
+  });
+
+  roomGalleryModal.addEventListener('touchmove', (e) => {
+    if (!isDragging || window.innerWidth > 768) return;
+
+    currentY = e.touches[0].clientY;
+    const deltaY = currentY - startY;
+
+    // Only allow downward swipes
+    if (deltaY > 0) {
+      e.preventDefault();
+      // Add visual feedback by moving the modal
+      const translateY = Math.min(deltaY, 200);
+      roomGalleryModal.style.transform = `translateY(${translateY}px)`;
+      initialTransform = translateY;
+    }
+  });
+
+  roomGalleryModal.addEventListener('touchend', (e) => {
+    if (!isDragging || window.innerWidth > 768) return;
+
+    const deltaY = currentY - startY;
+    const threshold = 100; // Minimum swipe distance to close
+
+    if (deltaY > threshold) {
+      // Close the modal
+      roomGalleryModal.classList.remove('show');
+      setTimeout(() => {
+        roomGalleryModal.style.display = 'none';
+        roomGalleryModal.style.visibility = 'hidden';
+        document.body.style.overflow = 'auto';
+        roomGalleryModal.style.transform = 'translateY(100%)';
+      }, 400);
+    } else {
+      // Snap back to original position
+      roomGalleryModal.style.transform = 'translateY(0)';
+    }
+
+    isDragging = false;
+    startY = 0;
+    currentY = 0;
+    initialTransform = 0;
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (roomGalleryModal.style.display === 'block') {
+      switch (e.key) {
+        case 'Escape':
+          roomGalleryModal.classList.remove('show');
+          setTimeout(() => {
+            roomGalleryModal.style.display = 'none';
+            roomGalleryModal.style.visibility = 'hidden';
+            document.body.style.overflow = 'auto';
+          }, 400);
+          break;
+        case 'ArrowLeft':
+          showPrevImage();
+          break;
+        case 'ArrowRight':
+          showNextImage();
+          break;
+      }
+    }
+  });
+});
+
 // Console welcome message
 console.log(
   '%c🏨 Welcome to Hotel Norling Retreat! 🏨',

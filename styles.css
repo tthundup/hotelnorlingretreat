@@ -411,6 +411,186 @@ h3 {
     font-size: 1rem;
 }
 
+/* Room Gallery Overlay */
+.room-image {
+    position: relative;
+}
+
+.room-gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(212, 175, 55, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    color: #2c2c2c;
+    font-weight: 600;
+}
+
+.room-gallery-overlay i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.room-gallery-overlay span {
+    font-size: 1rem;
+}
+
+.room-card:hover .room-gallery-overlay {
+    opacity: 1;
+}
+
+/* Room Gallery Modal - Desktop */
+#roomGalleryModal {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh - 48px;
+    background: transparent;
+    border-radius: 0;
+    overflow: hidden;
+    border: none;
+    position: fixed;
+    left: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 10000;
+    display: none; /* Override .modal display: none */
+}
+
+/* Full-screen overlay for desktop */
+#roomGalleryModal::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+#roomGalleryModal.show {
+    transform: translateY(0);
+}
+
+
+.room-gallery-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    height: calc(100vh - 168px);
+}
+
+.room-gallery-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+    height: 100%;
+}
+
+.room-gallery-main img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(212, 175, 55, 0.9);
+    color: #2c2c2c;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-nav:hover {
+    background: #d4af37;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+.gallery-prev {
+    left: 1rem;
+}
+
+.gallery-next {
+    right: 1rem;
+}
+
+.room-gallery-dots {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+}
+
+.room-gallery-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.room-gallery-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.room-gallery-dot.active {
+    background: #d4af37;
+    transform: scale(1.3);
+}
+
+.room-gallery-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+    transition: color 0.3s ease;
+}
+
+.room-gallery-close:hover {
+    color: #d4af37;
+}
+
 /* Amenities Section */
 .amenities {
     padding: 100px 0;
@@ -1198,6 +1378,80 @@ h3 {
     .footer-review-img {
         height: 100px;
     }
+
+    /* Room Gallery Modal Mobile - Drawer Style */
+    #roomGalleryModal {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        top: 0 !important;
+        bottom: auto !important;
+        border-radius: 0 !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        transform: translateY(100%) !important;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+
+    #roomGalleryModal.show {
+        transform: translateY(0) !important;
+    }
+
+
+    .room-gallery-container {
+        padding: 1rem;
+        height: calc(100vh - 100px) !important;
+    }
+
+    .room-gallery-main {
+        max-height: 100%;
+        height: 100%;
+    }
+
+    .gallery-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .gallery-prev {
+        left: 0.5rem;
+    }
+
+    .gallery-next {
+        right: 0.5rem;
+    }
+
+    .room-gallery-dots {
+        padding: 0.5rem 1rem;
+        gap: 0.3rem;
+        height: 60px;
+    }
+
+    .room-gallery-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Hide close button on mobile */
+    .room-gallery-close {
+        display: none !important;
+    }
+
+    /* Drawer handle indicator */
+    #roomGalleryModal::before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+        z-index: 10002;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1250,7 +1504,7 @@ h3 {
     }
 
     .close {
-        top: -30px;
+        top: 10px;
         font-size: 30px;
     }
 }
@@ -1290,7 +1544,7 @@ h3 {
 
 .close {
     position: absolute;
-    top: -40px;
+    top: 10px;
     right: 0;
     color: white;
     font-size: 35px;
