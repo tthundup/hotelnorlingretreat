@@ -866,6 +866,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Secure external link handling
+document.addEventListener('DOMContentLoaded', () => {
+  const externalLinks = document.querySelectorAll(
+    'a[href^="http"]:not([href*="' + window.location.hostname + '"])'
+  );
+
+  externalLinks.forEach((link) => {
+    // Ensure all external links have proper security attributes
+    if (!link.hasAttribute('rel')) {
+      link.setAttribute('rel', 'noopener noreferrer');
+    } else if (!link.getAttribute('rel').includes('noopener')) {
+      link.setAttribute(
+        'rel',
+        link.getAttribute('rel') + ' noopener noreferrer'
+      );
+    }
+
+    // Add visual indicator for external links
+    if (link.target === '_blank') {
+      link.setAttribute(
+        'aria-label',
+        (link.getAttribute('aria-label') || '') + ' - Opens in new tab'
+      );
+    }
+  });
+});
+
 // Console welcome message
 console.log(
   '%c🏨 Welcome to Hotel Norling Retreat! 🏨',
